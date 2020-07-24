@@ -19,5 +19,5 @@ const {MongoMemoryServer} = require('mongodb-memory-server');
         resolvers
     });
 
-    server.start();
+    await server.start();
 });
