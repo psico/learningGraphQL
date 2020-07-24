@@ -2,11 +2,15 @@ const {GraphQLServer} = require("graphql-yoga");
 const path = require("path");
 const resolvers = require("./resolvers");
 const mongoose = require("mongoose");
-import { MongoMemoryServer } from 'mongodb-memory-server';
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
-const mongod = new MongoMemoryServer();
-// const mongod = new MongoMemoryServer();
-mongoose.connect(mongod.getUri(), {
+const mongod = (async () => new MongoMemoryServer())().then( async (data) =>{
+console.log(await data.getUri());
+const uri = await data.getUri();
+
+console.log(uri);
+
+mongoose.connect(uri, {
     useCreateIndex: true,
     useNewUrlParser: true,
     connectTimeoutMS: 10000,
@@ -21,3 +25,4 @@ const server = new GraphQLServer({
 });
 
 server.start();
+});
