@@ -4,11 +4,19 @@ type User {
     email: String!
 }
 
+type Corrida {
+    id: ID!
+    longitude: String!
+    latitude: String!
+}
+
 type Query {
     users: [User!]!
+    corridas: [Corrida]
     user(id: ID!): User
 }
 
 type Mutation {
     createUser(name: String!, email: String!): User
+    criarCorrida(longitude: String!, latitude: String!): Corrida
 }
